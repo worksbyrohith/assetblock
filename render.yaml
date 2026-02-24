@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: assetblock-api
+    runtime: python
+    rootDir: src
+    buildCommand: pip install -r ../requirements-api.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FIREBASE_PROJECT_ID
+        value: assetblock-3df65
+      - key: FIREBASE_WEB_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false

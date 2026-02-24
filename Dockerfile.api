@@ -1,0 +1,17 @@
+# ── AssetBlock FastAPI Backend ──────────────────────────────────────────────
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source
+COPY src/ ./src/
+
+# Run from inside src/ so relative imports (database, sha256_hash) resolve
+WORKDIR /app/src
+
+# Cloud Run sets $PORT dynamically
+CMD uvicorn api:app --host 0.0.0.0 --port ${PORT:-8000}

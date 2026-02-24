@@ -1,0 +1,19 @@
+# ── AssetBlock Client (Streamlit) ───────────────────────────────────────────
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy only what the client needs
+COPY src/client/ ./src/client/
+COPY .streamlit/ ./.streamlit/
+
+# Cloud Run sets $PORT dynamically; Streamlit reads it via --server.port
+CMD streamlit run src/client/client.py \
+    --server.port=${PORT:-8501} \
+    --server.address=0.0.0.0 \
+    --server.headless=true \
+    --server.enableCORS=false

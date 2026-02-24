@@ -1,0 +1,33 @@
+# Environment secrets — NEVER commit these
+.env
+*.env
+
+# Firebase service account — contains private key, keep local only
+src/firebase.json
+
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
