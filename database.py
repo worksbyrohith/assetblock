@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-# Resolve .env from project root (one level above src/)
-_env_path = Path(__file__).resolve().parent.parent / ".env"
+# Resolve .env from project root
+_env_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(_env_path)
 
 

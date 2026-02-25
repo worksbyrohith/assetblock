@@ -19,8 +19,8 @@ import json
 from database import execute_query, execute_one
 from sha256_hash import generate_hash
 
-# Resolve .env from project root (one level above src/)
-_env_path = Path(__file__).resolve().parent.parent / ".env"
+# Resolve .env from project root
+_env_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(_env_path)
 
 # ── Firebase Admin Init ──────────────────────────────────────────────────────
@@ -28,12 +28,20 @@ if not firebase_admin._apps:
     # On cloud (Render): load from FIREBASE_CREDENTIALS_JSON env var
     firebase_creds_json = os.getenv("FIREBASE_CREDENTIALS_JSON")
     if firebase_creds_json:
-        cred_dict = json.loads(firebase_creds_json)
-        cred = credentials.Certificate(cred_dict)
+        try:
+            cred_dict = json.loads(firebase_creds_json)
+            cred = credentials.Certificate(cred_dict)
+        except Exception:
+            # Fallback if the string itself is a path (unlikely on Render but safe)
+            cred = credentials.Certificate(firebase_creds_json)
     else:
         # Local dev: load from firebase.json file
         firebase_json_path = os.path.join(os.path.dirname(__file__), "firebase.json")
-        cred = credentials.Certificate(firebase_json_path)
+        if os.path.exists(firebase_json_path):
+            cred = credentials.Certificate(firebase_json_path)
+        else:
+            # Last resort: let it fail with a clear error or look for it in root
+            cred = credentials.Certificate("firebase.json")
     firebase_admin.initialize_app(cred)
 
 # ── FastAPI App ──────────────────────────────────────────────────────────────

@@ -12,8 +12,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Resolve .env from project root (3 levels above src/client/client.py)
-_env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+# Resolve .env from project root
+_env_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(_env_path)
 
 # ── Config: Streamlit secrets (cloud) or env vars (local) ────────────────────
