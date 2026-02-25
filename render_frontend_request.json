@@ -1,0 +1,39 @@
+{
+    "name": "assetblock-app",
+    "ownerId": "tea-d6esih7gi27c73fipibg",
+    "repo": "https://github.com/worksbyrohith/assetblock",
+    "type": "web_service",
+    "autoDeploy": "yes",
+    "serviceDetails": {
+        "env": "python",
+        "region": "oregon",
+        "plan": "free",
+        "rootDir": "",
+        "envSpecificDetails": {
+            "buildCommand": "pip install -r requirements-client.txt",
+            "startCommand": "streamlit run src/client/client.py --server.port $PORT --server.address 0.0.0.0"
+        },
+        "envVars": [
+            {
+                "key": "API_BASE_URL",
+                "value": "https://assetblock-api.onrender.com"
+            },
+            {
+                "key": "FIREBASE_WEB_API_KEY",
+                "value": "AIzaSyCdF2-vOL2oJPOfe-mVKaJeimXtSqH6BPc"
+            },
+            {
+                "key": "FIREBASE_AUTH_DOMAIN",
+                "value": "assetblock-3df65.firebaseapp.com"
+            },
+            {
+                "key": "FIREBASE_PROJECT_ID",
+                "value": "assetblock-3df65"
+            },
+            {
+                "key": "FIREBASE_STORAGE_BUCKET",
+                "value": "assetblock-3df65.appspot.com"
+            }
+        ]
+    }
+}

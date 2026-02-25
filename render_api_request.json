@@ -1,0 +1,23 @@
+{
+    "name": "assetblock-api",
+    "ownerId": "tea-d6esih7gi27c73fipibg",
+    "repo": "https://github.com/worksbyrohith/assetblock",
+    "type": "web_service",
+    "autoDeploy": "yes",
+    "serviceDetails": {
+        "env": "python",
+        "region": "oregon",
+        "plan": "free",
+        "rootDir": "src",
+        "envSpecificDetails": {
+            "buildCommand": "pip install -r ../requirements-api.txt",
+            "startCommand": "uvicorn api:app --host 0.0.0.0 --port $PORT"
+        },
+        "envVars": [
+            {
+                "key": "DATABASE_URL",
+                "value": "postgresql://postgres.dqdabbmjcdzdnptmkhwk:AssetBlock2024!@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
+            }
+        ]
+    }
+}
